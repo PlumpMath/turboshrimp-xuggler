@@ -10,6 +10,8 @@
                    :checksum :ignore}]]
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [xuggle/xuggle-xuggler "5.2"]]
+  :source-paths ["src/clj"]
+  :java-source-paths ["src/java"]
   :profiles {:test
              {:dependencies [[com.lemondronor/turboshrimp "0.3.1"]]
               :resource-paths ["test-resources"]}})
