@@ -12,6 +12,8 @@
                  [xuggle/xuggle-xuggler "5.2"]]
   :source-paths ["src/clj"]
   :java-source-paths ["src/java"]
-  :profiles {:test
-             {:dependencies [[com.lemondronor/turboshrimp "0.3.1"]]
-              :resource-paths ["test-resources"]}})
+  :profiles {:dev
+             {:dependencies [[com.lemondronor/turboshrimp "0.3.2"]
+                             [com.lemonodor/gflags "0.7.1"]]
+              :resource-paths ["test-resources"]
+              :source-paths ["examples"]}})
