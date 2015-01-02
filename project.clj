@@ -1,6 +1,5 @@
 (defproject com.lemondronor/turboshrimp-xuggler "0.0.2-SNAPSHOT"
-  :description (str "An AR.Drone video decoder for the turboshrimp library "
-                    "that uses the xuggler H.264 decoder.")
+  :description "An AR.Drone video decoder for the turboshrimp library that uses the xuggler H.264 decoder."
   :url "https://github.com/wiseman/turboshrimp-xuggler"
   :license {:name "MIT License"
             :url "http://opensource.org/licenses/MIT"}
