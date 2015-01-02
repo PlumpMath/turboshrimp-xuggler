@@ -1,8 +1,7 @@
 (ns timedecoding
   (:require [clojure.java.io :as io]
-            [clojure.tools.logging :as log]
-            [com.lemondronor.turboshrimp.xuggler :as decode]
-            [com.lemondronor.turboshrimp.pave :as pave])
+            [com.lemondronor.turboshrimp.pave :as pave]
+            [com.lemondronor.turboshrimp.xuggler :as decode])
   (:gen-class))
 
 

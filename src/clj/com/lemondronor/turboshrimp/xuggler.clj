@@ -1,14 +1,14 @@
 (ns com.lemondronor.turboshrimp.xuggler
   "This is an AR.Drone video decoder that uses the xuggler library to
   decode H.264."
-  (:import [java.io InputStream]
-           [java.nio ByteBuffer]
-           [com.xuggle.ferry IBuffer]
-           [com.xuggle.xuggler ICodec$ID IPacket IPixelFormat IPixelFormat$Type
-            IRational IStreamCoder IStreamCoder$Direction IStreamCoder$Flags
-            IVideoPicture]
-           [com.xuggle.xuggler.video ConverterFactory ConverterFactory$Type
-            IConverter]))
+  (:import (com.xuggle.ferry IBuffer)
+           (com.xuggle.xuggler ICodec$ID IPacket IPixelFormat$Type
+                               IRational IStreamCoder
+                               IStreamCoder$Direction
+                               IStreamCoder$Flags IVideoPicture)
+           (com.xuggle.xuggler.video ConverterFactory
+                                     ConverterFactory$Type IConverter)
+           (java.nio ByteBuffer)))
 
 
 (defn decode-frame [^IStreamCoder coder ^IConverter converter
