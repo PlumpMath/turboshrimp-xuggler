@@ -1,5 +1,6 @@
 (ns com.lemondronor.turboshrimp.xuggler
-  "This is an AR.Drone video decoder that uses the xuggler library."
+  "This is an AR.Drone video decoder that uses the xuggler library to
+  decode H.264."
   (:import [java.io InputStream]
            [java.nio ByteBuffer]
            [com.xuggle.ferry IBuffer]
@@ -10,47 +11,21 @@
             IConverter]))
 
 
-;; (defn payload-input-stream [frame-queue]
-;;   (let [payload (atom nil)
-;;         offset (atom 0)]
-;;     (proxy [InputStream] []
-;;       (read []
-;;         (let [p @payload]
-;;           (when (and p (> @offset (count p)))
-;;             (reset! offset 0)
-;;             (reset! payload (:payload (pave/pull-frame frame-queue))))
-;;           (if @p
-;;             (let [b (aget @payload @offset)]
-;;               (swap! offset inc)
-;;               b)
-;;             -1))))))
-
-
-(defrecord Decoder [^IStreamCoder video-stream-coder])
-
-
-(defn decode-frame [^IStreamCoder coder ^bytes frame-data]
-  (let [^ByteBuffer bb (ByteBuffer/wrap frame-data)
+(defn decode-frame [^IStreamCoder coder ^IConverter converter
+                    ^IVideoPicture video-picture frame]
+  (let [^bytes frame-data (:payload frame)
+        ^ByteBuffer bb (ByteBuffer/wrap frame-data)
         ^IBuffer buffer (IBuffer/make nil (.capacity bb))
         ^IPacket packet (IPacket/make buffer)]
     (.put (.getByteBuffer packet) (.array bb))
-    (if (.isComplete packet)
-      (if (= (.getStreamIndex packet) 0)
-        (let [^IVideoPicture video-picture (IVideoPicture/make
-                                            IPixelFormat$Type/YUV420P
-                                            640
-                                            360)]
-          (.decodeVideo coder video-picture packet 0)
-          (when (.isComplete video-picture)
-            (let [^ConverterFactory$Type type
-                  (ConverterFactory/findRegisteredConverter
-                   ConverterFactory/XUGGLER_BGR_24)
-                  ^IConverter converter
-                  (ConverterFactory/createConverter
-                   (.getDescriptor type)
-                   video-picture)
-                  image (.toImage converter video-picture)]
-              image)))))))
+    (if (and (.isComplete packet)
+             (= (.getStreamIndex packet) 0))
+      (do
+        (.decodeVideo coder video-picture packet 0)
+        (if (.isComplete video-picture)
+          (.toImage converter video-picture)
+          nil))
+      nil)))
 
 
 (defn decoder []
@@ -67,8 +42,17 @@
                 (.setGlobalQuality 0)
                 (.setFrameRate (IRational/make 25 1))
                 (.setTimeBase (IRational/make 1 25))
-                (.setAutomaticallyStampPacketsForStream true))]
-    (when (< (.open coder nil nil) 0)
+                (.setAutomaticallyStampPacketsForStream true))
+        ^IVideoPicture video-picture (IVideoPicture/make
+                                      IPixelFormat$Type/YUV420P
+                                      640
+                                      360)
+        ^ConverterFactory$Type type (ConverterFactory/findRegisteredConverter
+                                     ConverterFactory/XUGGLER_BGR_24)
+        converter (ConverterFactory/createConverter
+                   (.getDescriptor type)
+                   video-picture)]
+        (when (< (.open coder nil nil) 0)
       (throw (ex-info "Error opening coder" {})))
     (fn [frame]
-      (decode-frame coder (:payload frame)))))
+      (decode-frame coder converter video-picture frame))))
