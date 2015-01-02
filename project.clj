@@ -1,4 +1,4 @@
-(defproject com.lemondronor/turboshrimp-xuggler "0.0.1-SNAPSHOT"
+(defproject com.lemondronor/turboshrimp-xuggler "0.0.1"
   :description (str "An AR.Drone video decoder for the turboshrimp library "
                     "that uses the xuggler H.264 decoder.")
   :url "https://github.com/wiseman/turboshrimp-xuggler"
