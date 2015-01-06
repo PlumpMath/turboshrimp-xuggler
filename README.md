@@ -1,4 +1,4 @@
-# turboshrimp-h264j
+# turboshrimp-xuggler
 
 This is an AR.Drone video decoder for
 [turboshrimp](https://github.com/wiseman/turboshrimp) that uses
@@ -10,6 +10,6 @@ FIXME
 
 ## License
 
-Copyright © 2014 John Wiseman
+Copyright © 2014, 2015 John Wiseman
 
 Distributed under the MIT license.  See the accompanying LICENSE file.
