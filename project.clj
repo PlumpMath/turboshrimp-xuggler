@@ -15,4 +15,5 @@
              {:dependencies [[com.lemondronor/turboshrimp "0.3.2"]
                              [com.lemonodor/gflags "0.7.1"]]
               :resource-paths ["test-resources"]
-              :source-paths ["examples"]}})
+              :source-paths ["examples"]
+              {:plugins [[lein-cloverage "1.0.2"]]}}})
