@@ -16,4 +16,4 @@
                              [com.lemonodor/gflags "0.7.1"]]
               :resource-paths ["test-resources"]
               :source-paths ["examples"]
-              {:plugins [[lein-cloverage "1.0.2"]]}}})
+              :plugins [[lein-cloverage "1.0.2"]]}})
