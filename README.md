@@ -12,7 +12,7 @@ This is an AR.Drone video decoder for
 (require '[com.lemondronor.turboshrimp.xuggler :as video])
 
 (def decoder (video/decoder))
-(decoder &lt;<byte array containing video frame&gt;)
+(decoder <byte array containing video frame>)
 ```
 
 ## License
