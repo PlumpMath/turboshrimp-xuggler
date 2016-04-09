@@ -12,8 +12,9 @@
   :source-paths ["src/clj"]
   :java-source-paths ["src/java"]
   :profiles {:dev
-             {:dependencies [[com.lemondronor/turboshrimp "0.3.2"]
-                             [com.lemonodor/gflags "0.7.1"]]
+             {:dependencies [[com.lemondronor/turboshrimp "0.3.8"]
+                             [com.lemonodor/gflags "0.7.3"]
+                             [com.lemonodor/xio "0.2.2"]]
               :resource-paths ["test-resources"]
               :source-paths ["examples"]
               :plugins [[lein-cloverage "1.0.2"]]}})
